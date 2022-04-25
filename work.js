@@ -1,42 +1,40 @@
 'use strict';
 (function() {
   /* ========= sidebar toggle ======== */
-  const sidebarNavWrapper = document.querySelector('.sidebar-nav-wrapper');
-  const mainWrapper = document.querySelector('.main-wrapper');
-  const menuToggleButton = document.querySelector('#menu-toggle');
-  const menuToggleButtonIcon = document.querySelector('#menu-toggle svg');
-  const overlay = document.querySelector('.overlay');
+  const SidebarNavWrapper = document.querySelector('.sidebar-nav-wrapper');
+  const MainWrapper = document.querySelector('.main-wrapper');
+  const MenuToggleButton = document.querySelector('#menu-toggle');
+  const MenuToggleButtonIcon = document.querySelector('#menu-toggle svg');
+  const Overlay = document.querySelector('.overlay');
+  const PerPage = document.querySelector('#PerPage');
+  const SearchButton = document.querySelector('#SearchButton');
+  const TableHeader = document.querySelector('#TableHeader')
 
-  const perPage = document.querySelector('#PerPage');
-
-  const searchButton = document.querySelector('#SearchButton');
-
-  menuToggleButton.addEventListener('click', () => {
-    sidebarNavWrapper.classList.toggle('active');
-    overlay.classList.add('active');
-    mainWrapper.classList.toggle('active');
+  MenuToggleButton.addEventListener('click', () => {
+    SidebarNavWrapper.classList.toggle('active');
+    Overlay.classList.add('active');
+    MainWrapper.classList.toggle('active');
 
     if (document.body.clientWidth > 1200) {
-      if (sidebarNavWrapper.classList.contains('active')) {
-        menuToggleButtonIcon.innerHTML = '<path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>';
+      if (SidebarNavWrapper.classList.contains('active')) {
+        MenuToggleButtonIcon.innerHTML = '<path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>';
 
       } else {
-        menuToggleButtonIcon.innerHTML = '<path fill-rule="evenodd" d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"></path>';
+        MenuToggleButtonIcon.innerHTML = '<path fill-rule="evenodd" d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"></path>';
       }
     } else {
-      if (sidebarNavWrapper.classList.contains('active')) {
-        menuToggleButtonIcon.innerHTML = '<path fill-rule="evenodd" d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"></path>';
+      if (SidebarNavWrapper.classList.contains('active')) {
+        MenuToggleButtonIcon.innerHTML = '<path fill-rule="evenodd" d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"></path>';
       }
     }
   });
 
-　overlay.addEventListener('click', () => {
-    sidebarNavWrapper.classList.remove('active');
-    overlay.classList.remove('active');
-    mainWrapper.classList.remove('active');
+  Overlay.addEventListener('click', () => {
+    SidebarNavWrapper.classList.remove('active');
+    Overlay.classList.remove('active');
+    MainWrapper.classList.remove('active');
   });
-　
- 
+
 
   const tableData = [{
     name: 'jacky',
@@ -97,19 +95,18 @@
   }]
 
   const tableField = [{
-   key : 'name',
-   label : 'Name'
-  },{
-   key : 'desc',
-   label : 'Description'
-  },{
-   key : 'age',
-   label : 'Age'
+    key: 'name',
+    label: 'Name'
+  }, {
+    key: 'desc',
+    label: 'Description'
+  }, {
+    key: 'age',
+    label: 'Age'
   }];
-  
+
   const tdata = new TableData('#TableBody', tableData);
   const pg = new Pagination('#Pagination', tableData.length);
-
 
   pg.watch = (page, total) => {
     document.querySelector('#Page').innerHTML = page;
@@ -117,45 +114,59 @@
     tdata.page = page;
   };
 
+  pg.perPage = ~~PerPage.value;
+  tdata.perPage = ~~PerPage.value;
 
-  pg.perPage = ~~perPage.value;
-  tdata.perPage = ~~perPage.value;
-
-  perPage.addEventListener('change', (e) => {
+  PerPage.addEventListener('change', (e) => {
     tdata.perPage = ~~e.target.value
     pg.perPage = ~~e.target.value;
     pg.page = 1;
   });
 
-  searchButton.addEventListener('click', (e) => {
+  SearchButton.addEventListener('click', (e) => {
     tdata.filter = document.querySelector('#Search').value || '';
     pg.total = tdata.dataLength;
     pg.page = 1;
   });
-  
-  
+
   const tr = document.createElement('tr');
   tr.className = 'bg-primary-900 text-light';
-  
-  tableField.forEach((f)=>{
-    const td = document.createElement('td');
-    td.innerHTML = f.label;
-    tr.appendChild(td);
-  });
-  
-  document.querySelector('#TableHeader').innerHTML = '';
-  document.querySelector('#TableHeader').appendChild(tr);
 
-  
+  tableField.forEach((f) => {
+    const th = document.createElement('th');
+    th.innerHTML = f.label;
+    tr.appendChild(th);
+    if (f.key === tdata.sort) {
+      th.className = 'sort sort-' + tdata.order;
+    } else {
+      th.className = '';
+    }
+
+    th.addEventListener('click', () => {
+      document.querySelector('.sort').className = '';
+
+      tdata.order = tdata.order === 'asc' ? 'desc' : 'asc';
+      tdata.sort = f.key;
+
+      th.className = 'sort sort-' + tdata.order;
+    });
+
+  });
+
+  TableHeader.innerHTML = '';
+  TableHeader.appendChild(tr);
+
   function TableData(ele, data) {
     let _data = data;
     this.ele = document.querySelector(ele);
-    this.sort = 'age';
-    this.order = 'desc';
+    let _sort = '';
+    let _order = 'desc';
     let _filter = ''
     let _page = 1;
     let _perPage = 10;
-
+    if (data && data.length) {
+      _sort = Object.keys(data[0])[0] || '';
+    }
     const render = () => {
       this.ele.innerHTML = '';
       this.data.filter(d => {
@@ -173,12 +184,10 @@
 
       }).sort((a, b) => {
         if (this.order == 'asc') {
-
-          return a[this.sort] - b[this.sort];
+          return a[this.sort] > b[this.sort] ? 1 : -1;
         } else {
-          return b[this.sort] - a[this.sort];
+          return a[this.sort] > b[this.sort] ? -1 : 1;
         }
-
 
       }).splice((this.page - 1) * this.perPage, this.page * this.perPage).forEach(d => {
         const tr = document.createElement('tr');
@@ -202,6 +211,26 @@
       }
     });
 
+
+    Object.defineProperty(this, 'sort', {
+      get: function() {
+        return _sort;
+      },
+      set: function(value) {
+        _sort = value || '';
+        render();
+      }
+    });
+
+    Object.defineProperty(this, 'order', {
+      get: function() {
+        return _order || 'desc';
+      },
+      set: function(value) {
+        _order = value || 'desc';
+        render();
+      }
+    });
 
     Object.defineProperty(this, 'filter', {
       get: function() {
@@ -311,7 +340,7 @@
 
     Object.defineProperty(this, 'total', {
       get: function() {
-        return Math.ceil(_total / this.perPage) || 1 ;
+        return Math.ceil(_total / this.perPage) || 1;
       },
       set: function(value) {
         _total = value;
