@@ -7794,6 +7794,6 @@ h6,
   content : '▲';
 }
 
-.sort.sort-asc::after{
+.sort.sort-desc::after{
   content : '▼';
 }
