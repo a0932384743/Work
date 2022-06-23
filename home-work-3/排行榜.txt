@@ -1,0 +1,5 @@
+1. jacky 分數: 4
+2. jacky 分數: 2
+3. jacky 分數: 1
+4. jacky 分數: 0
+5. jack 分數: 0

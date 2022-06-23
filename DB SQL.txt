@@ -1,0 +1,21 @@
+create table traveler
+(
+    passengerId int(255)             not null,
+    survived    tinyint(1) default 1 not null,
+    pclass      char(50)             null,
+    name        char(255)            null,
+    sex         char(20)             null,
+    age         int(20)              null,
+    sibSp       int                  null,
+    parch       int                  null,
+    ticket      char(255)            null,
+    fare        int                  null,
+    cabin       char(255)            null,
+    embarked    char(255)            null,
+    `update`    date                 null,
+    constraint traveler_passengerId_uindex
+        unique (passengerId)
+);
+
+alter table traveler
+    add primary key (passengerId);
